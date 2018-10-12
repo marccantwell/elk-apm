@@ -49,6 +49,20 @@ services:
     depends_on:
       - elasticsearch
 
+  apm:
+    build:
+      context: apm/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./apm/config/apm-server.yml/:/usr/share/apm-server/apm-server.yml:ro
+    ports:
+      - "8200:8200"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
 networks:
 
   elk:
